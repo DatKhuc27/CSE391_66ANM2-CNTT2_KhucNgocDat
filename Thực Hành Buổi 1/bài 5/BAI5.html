@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Management - Exercise 05</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #ffffff; }
+        .navbar { background-color: #212529 !important; }
+        
+        /* Chỉnh style cho bảng giống đề bài */
+        .table { border: 1px solid #dee2e6; }
+        .table thead th { border-bottom: 2px solid #dee2e6; }
+        
+        /* Cấu trúc nút Action giống trong ảnh mẫu */
+        .action-group {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            width: 60px;
+        }
+        .btn-edit {
+            background-color: #ffc107;
+            border: none;
+            color: black;
+            font-size: 12px;
+            padding: 2px 5px;
+        }
+        .btn-delete {
+            background-color: #dc3545;
+            border: none;
+            color: white;
+            font-size: 12px;
+            padding: 2px 5px;
+        }
+        
+        /* Modal header màu xanh dương theo mẫu */
+        .modal-header {
+            background-color: #007bff;
+            color: white;
+            border-radius: 0;
+        }
+        .btn-close { filter: invert(1); }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand navbar-dark bg-dark py-2">
+    <div class="container-fluid px-4">
+        <div class="d-flex align-items-center">
+            <a class="navbar-brand fw-bold me-4" href="#">HR Management</a>
+            <ul class="navbar-nav d-flex flex-row gap-3">
+                <li class="nav-item"><a class="nav-link active p-0" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link p-0 text-secondary" href="#">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="d-flex align-items-center ms-auto">
+            <input class="form-control form-control-sm me-2" type="search" placeholder="Search..." style="width: 200px; border-radius: 4px;">
+            <button class="btn btn-sm btn-outline-light px-3" type="button" style="border-radius: 4px;">Search</button>
+        </div>
+    </div>
+</nav>
+
+    <div class="container-fluid mt-4 px-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="fw-normal">Employee</h3>
+            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#employeeModal" onclick="resetForm()">
+                + Add
+            </button>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width: 50px;">ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Position</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal fade" id="employeeModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header py-2">
+                    <h6 class="modal-title">New Employee</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="employeeForm">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="small text-muted">Name</label>
+                                <input type="text" class="form-control form-control-sm" id="inpName">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small text-muted">Email</label>
+                                <input type="email" class="form-control form-control-sm" id="inpEmail">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="small text-muted">Phone</label>
+                                <input type="text" class="form-control form-control-sm" id="inpPhone">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small text-muted">Position</label>
+                                <select class="form-select form-select-sm" id="inpPosition">
+                                    <option value="">-- Select Position --</option>
+                                    <option value="Staff">Staff</option>
+                                    <option value="Manager">Manager</option>
+                                    <option value="CEO">CEO</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <label class="small d-block text-muted">Sex</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="sex" id="m" value="Male" checked>
+                                <label class="form-check-label small" for="m">Male</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="sex" id="f" value="Female">
+                                <label class="form-check-label small" for="f">Female</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer py-1">
+                    <button type="button" class="btn btn-success btn-sm px-3" onclick="saveEmployee()">Save</button>
+                    <button type="button" class="btn btn-secondary btn-sm px-3" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let employees = [
+            { id: 1, name: "Fatima Beatriz", email: "FatimaBeatriz@gmail.com", phone: "0985674321", position: "Staff" },
+            { id: 2, name: "Gabriel Hanna", email: "GabrielHanna@gmail.com", phone: "0353674231", position: "Staff" },
+            { id: 3, name: "Charles Diya", email: "CharlesDiya@gmail.com", phone: "0347658833", position: "Staff" },
+            { id: 4, name: "Frank Lamdo", email: "FrankLamdo@gmail.com", phone: "0975444768", position: "Manager" },
+            { id: 5, name: "Louis Tom", email: "LouisTom@gmail.com", phone: "0789568223", position: "Staff" }
+        ];
+
+        function renderTable() {
+            const tableBody = document.getElementById("tableBody");
+            tableBody.innerHTML = "";
+            employees.forEach(emp => {
+                tableBody.innerHTML += `
+                    <tr>
+                        <td>${emp.id}</td>
+                        <td>${emp.name}</td>
+                        <td>${emp.email}</td>
+                        <td>${emp.phone}</td>
+                        <td>${emp.position}</td>
+                        <td>
+                            <div class="action-group">
+                                <button class="btn-edit" onclick="alert('Edit ${emp.name}')">Edit</button>
+                                <button class="btn-delete" onclick="deleteEmployee(${emp.id})">Delete</button>
+                            </div>
+                        </td>
+                    </tr>`;
+            });
+        }
+
+        function saveEmployee() {
+            const name = document.getElementById("inpName").value;
+            const email = document.getElementById("inpEmail").value;
+            const phone = document.getElementById("inpPhone").value;
+            const position = document.getElementById("inpPosition").value;
+
+            if(!name || !email) return alert("Vui lòng nhập tên và email!");
+
+            const newId = employees.length > 0 ? employees[employees.length - 1].id + 1 : 1;
+            employees.push({ id: newId, name, email, phone, position });
+            
+            renderTable();
+            bootstrap.Modal.getInstance(document.getElementById('employeeModal')).hide();
+        }
+
+        function deleteEmployee(id) {
+            employees = employees.filter(emp => emp.id !== id);
+            renderTable();
+        }
+
+        function resetForm() {
+            document.getElementById("employeeForm").reset();
+        }
+
+        renderTable();
+    </script>
+</body>
+</html>

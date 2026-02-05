@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Form Template</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .form-container {
+            background-color: white;
+            width: 700px;
+            padding: 20px 40px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border: 1px solid #ccc;
+        }
+
+        /* Typography */
+        h3 {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            margin-top: 20px;
+            color: #000;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid #999;
+            margin-bottom: 20px;
+        }
+
+        /* Grid Layout for Form Rows */
+        .form-row {
+            display: grid;
+            grid-template-columns: 180px 1fr; /* Cột nhãn 180px, cột input phần còn lại */
+            margin-bottom: 12px;
+            align-items: center; /* Căn giữa theo chiều dọc */
+        }
+
+        .form-row.align-top {
+            align-items: start;
+        }
+
+        label {
+            font-weight: bold;
+            font-size: 13px;
+            color: #333;
+        }
+
+        /* Inputs styling */
+        input[type="text"], 
+        select {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #7f9db9; /* Màu viền xanh nhạt kiểu cũ */
+            font-size: 13px;
+            box-sizing: border-box; /* Để padding không làm vỡ layout */
+        }
+
+        .static-text {
+            font-size: 13px;
+            color: #000;
+        }
+
+        /* Radio & Checkbox styling */
+        .radio-group div, .checkbox-group div {
+            margin-bottom: 3px;
+            font-size: 13px;
+        }
+        
+        input[type="radio"], input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        /* Rich Text Editor Simulation */
+        .rich-text-container {
+            border: 1px solid #ccc;
+            background: #f9f9f9;
+        }
+        
+        .toolbar {
+            background: #e0e0e0;
+            padding: 5px;
+            border-bottom: 1px solid #ccc;
+            font-size: 12px;
+            user-select: none;
+        }
+
+        .toolbar span {
+            display: inline-block;
+            margin-right: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: serif;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            border: none;
+            padding: 10px;
+            font-family: 'Times New Roman', serif;
+            font-size: 14px;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+
+        /* Captcha Styling */
+        .captcha-text {
+            font-family: 'Courier New', monospace;
+            font-size: 24px;
+            letter-spacing: 5px;
+            font-weight: bold;
+            color: #444;
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAKrVq36zwjjgzjIWs6fP/8fxgZxYXwQGwAaXYf041Q8ZgAAAABJRU5ErkJggg==') repeat; /* Tạo hiệu ứng chấm bi */
+            display: inline-block;
+            padding: 5px 10px;
+            margin-bottom: 5px;
+        }
+
+        .captcha-input {
+            margin-top: 5px;
+        }
+
+        /* Footer Buttons */
+        .form-footer {
+            margin-top: 30px;
+            padding-top: 10px;
+            border-top: 1px solid #ccc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-group button {
+            padding: 5px 15px;
+            margin-left: 5px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .btn-submit {
+            background-color: #555;
+            color: white;
+            border: 1px solid #333;
+        }
+
+        .btn-cancel {
+            background-color: #333;
+            color: white;
+            border: 1px solid #000;
+        }
+        
+        /* Utility */
+        .small-icon {
+            float: right;
+            color: #666;
+            font-size: 12px;
+            margin-top: 4px;
+            margin-right: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <form>
+        <h3>Basic Info</h3>
+        <hr>
+
+        <div class="form-row">
+            <label>Employee ID</label>
+            <span class="static-text">9</span>
+        </div>
+
+        <div class="form-row">
+            <label>Last Name</label>
+            <span class="static-text">Dodsworth</span>
+        </div>
+
+        <div class="form-row">
+            <label>First Name</label>
+            <div style="position: relative;">
+                <input type="text" value="Anne">
+                <span class="small-icon">💾</span> </div>
+        </div>
+
+        <div class="form-row align-top">
+            <label>Gender</label>
+            <div class="radio-group">
+                <div><input type="radio" name="gender"> Male</div>
+                <div><input type="radio" name="gender"> Female</div>
+                <div><input type="radio" name="gender"> XXX</div>
+                <div><input type="radio" name="gender" checked> ZZZ</div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <label>Title</label>
+            <input type="text" value="Sales Representative">
+        </div>
+
+        <div class="form-row">
+            <label>Suffix</label>
+            <input type="text" value="Ms.">
+        </div>
+
+        <div class="form-row">
+            <label>BirthDate</label>
+            <input type="text" value="1969-07-02 00:00:00">
+        </div>
+
+        <div class="form-row">
+            <label>HireDate</label>
+            <input type="text" value="1994-11-15 00:00:00">
+        </div>
+
+        <div class="form-row">
+            <label>SSN # (if applicable)</label>
+            <input type="text">
+        </div>
+
+        <div class="form-row">
+            <label>Reports To</label>
+            <select style="width: 150px;">
+                <option>Buchanan</option>
+                <option>TUANTRAN</option>
+                <option>DAVID</option>
+            </select>
+        </div>
+
+        <h3>Contact Info</h3>
+        <hr>
+
+        <div class="form-row">
+            <label>Email</label>
+            <input type="text" placeholder="name@example.com" style="color: #999;">
+        </div>
+
+        <div class="form-row">
+            <label>Address</label>
+            <input type="text" value="7 Houndstooth Rd.">
+        </div>
+
+        <div class="form-row">
+            <label>City</label>
+            <input type="text" value="London">
+        </div>
+
+        <div class="form-row">
+            <label>Region</label>
+            <input type="text">
+        </div>
+
+        <div class="form-row">
+            <label>Postal Code</label>
+            <input type="text" value="WG2 7LT">
+        </div>
+
+        <div class="form-row">
+            <label>Country</label>
+            <select style="width: 180px;">
+                <option>Russian Federation</option>
+                <option>VIETNAM</option>
+                <option>USA</option>
+                <option>UK</option>
+            </select>
+        </div>
+
+        <div class="form-row">
+            <label>US Home Phone</label>
+            <input type="text" value="(234)234-2342">
+        </div>
+
+        <div class="form-row">
+            <label>Photo</label>
+            <input type="text" value="EmpID9.bmp">
+        </div>
+
+        <h3>Optional Info</h3>
+        <hr>
+
+        <div class="form-row align-top">
+            <label>Notes</label>
+            <div class="rich-text-container">
+                <div class="toolbar">
+                    <span style="font-weight: bold;">B</span>
+                    <span style="font-style: italic;">I</span>
+                    <span style="text-decoration: underline;">U</span>
+                    <span style="font-family: monospace;">S</span>
+                    <span style="color: blue;">Example</span>
+                </div>
+                <textarea>Anne has a BA degree in English from St. Lawrence College. She is fluent in French and German.ZZZ</textarea>
+            </div>
+        </div>
+
+        <div class="form-row align-top">
+            <label>Preferred Shift</label>
+            <div class="checkbox-group">
+                <div><input type="checkbox"> Regular</div>
+                <div><input type="checkbox" checked> Gravy Yard</div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <label>Active?</label>
+            <input type="checkbox" checked>
+        </div>
+
+        <div class="form-row align-top">
+            <label>Are you human?</label>
+            <div>
+                <div class="captcha-text">TIDAWO</div>
+                <div style="font-size: 11px; margin-bottom: 2px;">Click to change</div>
+                <input type="text" class="captcha-input">
+            </div>
+        </div>
+
+        <div class="form-footer">
+            <div class="nav-arrows">
+                <button type="button">&lt;</button>
+                <button type="button">&gt;</button>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn-submit">💾 Submit</button>
+                <button type="button" class="btn-cancel">✖ Cancel</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+</body>
+</html>
