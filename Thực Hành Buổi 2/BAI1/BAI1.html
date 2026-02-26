@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Contact Form Flexbox</title>
+
+<style>
+    body{
+        margin:0;
+        padding:20px;
+        background:#f5f5f5;
+        font-family:Arial, sans-serif;
+    }
+
+    .container{
+        background:#fff;
+        border:2px solid #333;
+        padding:30px;
+        max-width:900px;
+    }
+
+    .container h2{
+        margin-bottom:20px;
+        font-weight:normal;
+    }
+
+    form{
+        display:flex;
+        flex-direction:column;
+        row-gap:15px;
+    }
+
+    .group{
+        display:flex;
+        gap:15px;
+    }
+
+    .group.double input{
+        width:50%;
+    }
+
+    input, textarea{
+        width:100%;
+        padding:10px;
+        border:1px solid #ccc;
+        font-size:14px;
+    }
+
+    textarea{
+        height:200px;
+        resize:none;
+    }
+
+    .action{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+    }
+
+    .action button{
+        background:#5dade2;
+        border:none;
+        padding:10px 20px;
+        color:#fff;
+        border-radius:4px;
+        cursor:pointer;
+    }
+
+    .action button:hover{
+        background:#3498db;
+    }
+
+    .action span{
+        font-size:14px;
+        color:#666;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Get in touch with us by filling contact form below</h2>
+
+    <form>
+        <div class="group double">
+            <input type="text" placeholder="* Enter your full name">
+            <input type="email" placeholder="* Enter your email address">
+        </div>
+
+        <div class="group">
+            <input type="text" placeholder="Enter your subject">
+        </div>
+
+        <div class="group">
+            <textarea placeholder="* Your message here..."></textarea>
+        </div>
+
+        <div class="action">
+            <button type="submit">Send message</button>
+            <span>* Please fill all required form field, thanks!</span>
+        </div>
+
+    </form>
+</div>
+
+</body>
+</html>S
