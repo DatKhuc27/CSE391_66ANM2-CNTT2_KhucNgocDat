@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký tài khoản</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; padding: 40px 20px; }
+        .form-container { background: #fff; padding: 25px 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px; }
+        .form-group input[type="text"], .form-group input[type="password"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        input.error { border-color: #dc3545; background-color: #fff8f8; }
+        label.error { color: #dc3545; font-size: 12px; margin-top: 5px; font-weight: normal; }
+        .radio-group, .checkbox-group { display: flex; align-items: center; gap: 15px; font-size: 14px; }
+        .checkbox-group { margin-top: 10px; }
+        .submit-btn { width: 100%; padding: 12px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px; }
+        .submit-btn:hover { background-color: #218838; }
+        #successMessage { display: none; text-align: center; color: #28a745; }
+    </style>
+</head>
+<body>
+
+<div class="form-container" id="formContainer">
+    <h2 style="text-align: center; margin-top: 0;">__Đăng ký__</h2>
+    <form id="demoForm">
+        <div class="form-group">
+            <label for="fullname">Họ và tên</label>
+            <input type="text" id="fullname" name="fullname" placeholder="Nhập họ và tên">
+        </div>
+
+        <div class="form-group">
+            <label for="user">Email</label>
+            <input type="text" id="user" name="user" placeholder="name@domain.com">
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Số điện thoại</label>
+            <input type="text" id="phone" name="phone" placeholder="Gồm 10 số">
+        </div>
+
+        <div class="form-group">
+            <label for="password">Mật khẩu</label>
+            <input type="password" id="password" name="password" placeholder="Tối thiểu 8 ký tự, 1 hoa, 1 thường, 1 số">
+        </div>
+
+        <div class="form-group">
+            <label for="re-password">Xác nhận mật khẩu</label>
+            <input type="password" id="re-password" name="re-password" placeholder="Nhập lại mật khẩu">
+        </div>
+
+        <div class="form-group">
+            <label>Giới tính</label>
+            <div class="radio-group">
+                <label><input type="radio" name="gender" value="Nam"> Nam</label>
+                <label><input type="radio" name="gender" value="Nữ"> Nữ</label>
+            </div>
+            <label id="gender-error" class="error" for="gender" style="display:none;"></label>
+        </div>
+
+        <div class="form-group checkbox-group">
+            <input type="checkbox" id="terms" name="terms">
+            <label for="terms" style="margin: 0; font-weight: normal;">Tôi đồng ý điều khoản</label>
+        </div>
+        <label id="terms-error" class="error" for="terms" style="display:none;"></label>
+
+        <button type="submit" class="submit-btn">Đăng ký ngay</button>
+    </form>
+</div>
+
+<div class="form-container" id="successMessage">
+    <h2>Đăng ký thành công! 🎉</h2>
+    <p>Chào mừng <strong id="successName"></strong>!</p>
+</div>
+
+<script>
+$(document).ready(function() {
+    
+    $.validator.addMethod("validatePassword", function (value, element) {
+        return this.optional(element) || /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/.test(value);
+    }, "Hãy nhập password từ 8-16 ký tự bao gồm chữ hoa, chữ thường và ít nhất một số");
+
+    $.validator.addMethod("validateName", function (value, element) {
+        return this.optional(element) || /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s]{3,}$/.test(value);
+    }, "Tên phải từ 3 ký tự và chỉ chứa chữ cái");
+
+    $.validator.addMethod("validatePhone", function (value, element) {
+        return this.optional(element) || /^0\d{9}$/.test(value);
+    }, "Số điện thoại phải gồm 10 chữ số và bắt đầu bằng 0");
+
+    $("#demoForm").validate({
+        rules: {
+            fullname: { required: true, validateName: true },
+            user: { required: true, email: true, maxlength: 50 },
+            phone: { required: true, validatePhone: true },
+            password: { required: true, validatePassword: true, minlength: 8 },
+            "re-password": { required: true, equalTo: "#password", minlength: 8 },
+            gender: { required: true },
+            terms: { required: true }
+        },
+        messages: {
+            fullname: { required: "Bắt buộc nhập họ tên" },
+            user: { 
+                required: "Bắt buộc nhập email", 
+                email: "Vui lòng nhập email đúng định dạng",
+                maxlength: "Hãy nhập tối đa 50 ký tự"
+            },
+            phone: { required: "Bắt buộc nhập số điện thoại" },
+            password: { 
+                required: "Bắt buộc nhập password", 
+                minlength: "Hãy nhập ít nhất 8 ký tự" 
+            },
+            "re-password": { 
+                required: "Bắt buộc xác nhận mật khẩu",
+                equalTo: "Hai password phải giống nhau", 
+                minlength: "Hãy nhập ít nhất 8 ký tự" 
+            },
+            gender: { required: "Vui lòng chọn giới tính" },
+            terms: { required: "Bạn phải đồng ý với điều khoản" }
+        },
+        submitHandler: function(form) {
+            $("#formContainer").hide();
+            $("#successMessage").show();
+            $("#successName").text($("#fullname").val());
+        }
+    });
+});
+</script>
+
+</body>
+</html>
