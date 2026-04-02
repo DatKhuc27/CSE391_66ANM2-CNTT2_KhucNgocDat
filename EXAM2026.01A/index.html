@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conference Management</title>
+    <link rel="stylesheet" href="asset/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-dark bg-dark px-4">
+        <div class="d-flex align-items-center">
+            <span class="navbar-brand mb-0 h1">Conference Hub</span>
+              
+        </div>
+        <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Quick search...">
+        </form>
+        <form class="d-flex">
+            <ul class="navbar-nav flex-row gap-3 ms-3">
+                <li class="nav-item"><a class="nav-link active text-white" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">list</a></li>
+                 <button id="btnAddNew" class="btn btn-primary">+ Add New</button>
+                 <li class="nav-item"><a class="nav-link active text-white" href="#">About</a></li>
+            </ul>
+        </form>
+    </nav>
+    <div class="container main-container mt-4">
+        
+        <header class="page-header">
+            <h2>Conference Dash board</h2>
+            
+        </div>
+        <div class="container main-container mt-4">
+             <labe>Filter list</label>
+               <form class="d-flex">
+         <input class="form-control me-2" type="search" placeholder="Type to filter table...">
+               <form></form>
+         <label>Location</label>
+         <select>
+            <option>Viet Nam</option>
+            <option>America</option>
+            <option>Australia</option>
+            <option>England</option>
+         </select>
+            <button id="btnAddNew" class="btn btn-primary">+ Add New</button>
+        </div>
+     <div class="container main-container mt-4">
+       <table class="table mt-3">
+            <thead class="border-bottom">
+                <tr>
+                    <th>Conference name</th>
+                    <th>Speakers</th>
+                    <th>Email</th>
+                    <th>Date</th>
+                    <th>Location</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+
+            <tr> 
+                <td>AI for education Application Symposium</td>
+                    <td>Prof. james walker</td>
+                    <td>j.walker@university.edu</td>
+                    <td>2026-04-12</td>
+                    <td>lecture Hall A1, Boston</td>
+            </tr>
+             <tr> 
+                <td>Cloud security Deep Dive</td>
+                    <td>MS.lauren Chen</td>
+                    <td>ichen@sec-demo.com</td>
+                    <td>2026-04-18</td>
+                    <td>Auditorium B, Singapore</td>
+            </tr>
+             <tr> 
+                <td>UX workshop for digital products</td>
+                    <td>david morrison</td>
+                    <td>d.mourison.ux.outlook.com/td>
+                    <td>2026-05-15</td>
+                    <td>lecture Hall A1, Boston</td>
+            </tr>
+             <tr> 
+                <td>AI for education Application Symposium</td>
+                    <td>Prof. james walker</td>
+                    <td>j.walker@university.edu</td>
+                    <td>2026-04-12</td>
+                    <td>lecture Hall A1, Boston</td>
+            </tr>
+             <tr> 
+                <td>AI for education Application Symposium</td>
+                    <td>Prof. james walker</td>
+                    <td>j.walker@university.edu</td>
+                    <td>2026-04-12</td>
+                    <td>lecture Hall A1, Boston</td>
+            </tr>
+        </table>
+    </div>
+
+  <div>
+    <div class="custom-modal-content">
+        
+        <div class="modal-header">
+            <h3>Add neww Conference</h3>
+            <span class="close-btn" id="btnCloseModal">&times;</span>
+        </div>
+        
+        <form id="dataForm" novalidate>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Conference name</label>
+                    <input type="text" id="inputNameCF" placeholder= "Event title">
+                    <span id="errCF" class="text-danger d-block mt-1" style="font-size: 0.85rem;"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label>Speakers</label>
+                    <input type="text" id="inputNameSP" placeholder="Speakers name">
+                    <span id="errSp" class="text-danger d-block mt-1" style="font-size: 0.85rem;"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="email" id="inputEmail" placeholder="example@gmail.com">
+                    <span id="errEmail" class="text-danger d-block mt-1" style="font-size: 0.85rem;"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label>Date:</label>
+                    <input type="date" id="inputDate" >
+                    <span id="errDate" class="text-danger d-block mt-1" style="font-size: 0.85rem;"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label>Location:</label>
+                 <input type="text" id="inputLocation" >
+                    <span id="errLoc" class="text-danger d-block mt-1" style="font-size: 0.85rem;"></span>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" id="btnCancel" class="btn btn-secondary">Cancel</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
